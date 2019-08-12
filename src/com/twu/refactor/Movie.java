@@ -41,10 +41,8 @@ public class Movie {
 				if (daysRented > 3)
 					rentalAmount += (daysRented - 3) * 1.5;
 				break;
-
 		}
 		return rentalAmount;
 	}
-
 }
 

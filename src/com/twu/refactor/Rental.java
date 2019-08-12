@@ -28,7 +28,11 @@ public class Rental {
                 && getDaysRented() > 1;
     }
 
-    public String getRentalStatement(double rentalAmount) {
-        return "\t" + movie.getTitle() + "\t" + rentalAmount + "\n";
+    public String getStatement() {
+        return "\t" + movie.getTitle() + "\t" + getRentalAmount() + "\n";
+    }
+
+    public int frequentRentalPoints() {
+        return isApplicableForBonusFrequentRenterPoints()? 2: 1;
     }
 }
