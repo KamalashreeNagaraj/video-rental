@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 public class CustomerTest extends TestCase {
 
-	private static final String GOLD_PATH = "test/data";
+	private static final String FILE_SOURCE_DIRECTORY_PATH = "test/data";
 
     private Customer dinsdale = new Customer("Dinsdale Pirhana");
 
@@ -29,15 +29,15 @@ public class CustomerTest extends TestCase {
 
     public void testEmpty() throws Exception {
     	dinsdale = new Customer("Dinsdale Pirhana");
-        equalsFile("1st Output", "outputEmpty", dinsdale.statement());
+        equalsFile("outputEmpty", dinsdale.statement());
     }
     public void testCustomer() throws Exception {
-        equalsFile("1st Output", "output1", dinsdale.statement());
+        equalsFile("output1", dinsdale.statement());
     }
 
     public void testChange() throws Exception {
     	la.setPriceCode(Movie.REGULAR);
-        equalsFile("1st Output", "outputChange", dinsdale.statement());
+        equalsFile("outputChange", dinsdale.statement());
     }
 
     /*
@@ -46,10 +46,10 @@ public class CustomerTest extends TestCase {
     }
     */
     	
-    protected void equalsFile(String message, String fileName, String actualValue) throws IOException{
-        BufferedReader file = new BufferedReader (new FileReader (GOLD_PATH + '/' + fileName));
+    private void equalsFile(String fileName, String actualValue) throws IOException{
+        BufferedReader file = new BufferedReader (new FileReader (FILE_SOURCE_DIRECTORY_PATH + '/' + fileName));
         BufferedReader actualStream = new BufferedReader (new StringReader (actualValue));
-        String thisFileLine = null;
+        String thisFileLine;
         while  ((thisFileLine = file.readLine()) != null) {
             assertEquals ("in file: " + fileName, thisFileLine, actualStream.readLine());
         }
