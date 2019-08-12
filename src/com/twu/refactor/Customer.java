@@ -26,26 +26,9 @@ public class Customer {
 		Iterator<Rental> rentals = rentalList.iterator();
 		String result = "Rental Record for " + getName() + "\n";
 		while (rentals.hasNext()) {
-			double thisAmount = 0;
+			double rentalAmount = 0;
 			Rental each = rentals.next();
-
-			// determine amounts for each line
-			switch (each.getMovie().getPriceCode()) {
-			case Movie.REGULAR:
-				thisAmount += 2;
-				if (each.getDaysRented() > 2)
-					thisAmount += (each.getDaysRented() - 2) * 1.5;
-				break;
-			case Movie.NEW_RELEASE:
-				thisAmount += each.getDaysRented() * 3;
-				break;
-			case Movie.CHILDRENS:
-				thisAmount += 1.5;
-				if (each.getDaysRented() > 3)
-					thisAmount += (each.getDaysRented() - 3) * 1.5;
-				break;
-
-			}
+			rentalAmount = each.getRentalAmount();
 
 			// add frequent renter points
 			frequentRenterPoints++;
@@ -54,8 +37,8 @@ public class Customer {
 				frequentRenterPoints++;
 
 			// show figures for this rental
-			result += "\t" + each.getMovie().getTitle() + "\t" + thisAmount + "\n";
-			totalAmount += thisAmount;
+			result += "\t" + each.getMovie().getTitle() + "\t" + rentalAmount + "\n";
+			totalAmount += rentalAmount;
 
 		}
 		// add footer lines
@@ -63,5 +46,4 @@ public class Customer {
 		result += "You earned " + frequentRenterPoints + " frequent renter points";
 		return result;
 	}
-
 }
