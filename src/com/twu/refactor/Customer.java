@@ -1,7 +1,6 @@
 package com.twu.refactor;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Customer {
 
@@ -21,20 +20,23 @@ public class Customer {
 	}
 
 	public String statement() {
-		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-		String result = "Rental Record for " + getName() + "\n";
-
-		totalAmount = getTotalRentalAmount();
-		frequentRenterPoints = getFrequentRenterPoints();
-		result += getRentalStatement();
-
-		result += "Amount owed is " + totalAmount + "\n";
-		result += "You earned " + frequentRenterPoints + " frequent renter points";
+		String result = getStatementHeader();
+		result += getStatementBody();
+		result += getStatementFooter();
 		return result;
 	}
 
-	private double getTotalRentalAmount() {
+	public String getStatementHeader() {
+		return "Rental Record for " + getName() + "\n";
+	}
+
+	public String getStatementFooter() {
+		String result = "Amount owed is " + calculateTotalRentalAmount() + "\n";
+		result += "You earned " + calculateFrequentRenterPoints() + " frequent renter points";
+		return result;
+	}
+
+	private double calculateTotalRentalAmount() {
 		double amount = 0;
 		for (Rental rental: rentalList) {
 			amount += rental.getRentalAmount();
@@ -42,7 +44,7 @@ public class Customer {
 		return amount;
 	}
 
-	private int getFrequentRenterPoints() {
+	private int calculateFrequentRenterPoints() {
 		int frequentRenterPoints = 0;
 		for (Rental rental: rentalList) {
 			frequentRenterPoints += rental.frequentRentalPoints();
@@ -50,11 +52,11 @@ public class Customer {
 		return frequentRenterPoints;
 	}
 
-	private String getRentalStatement() {
-		String statement = "";
+	private String getStatementBody() {
+		StringBuilder statement = new StringBuilder();
 		for (Rental rental: rentalList) {
-			statement += rental.getStatement();
+			statement.append(rental.getStatement());
 		}
-		return statement;
+		return statement.toString();
 	}
 }
