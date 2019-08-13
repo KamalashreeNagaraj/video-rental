@@ -33,6 +33,6 @@ public class Rental {
     }
 
     public int frequentRentalPoints() {
-        return isApplicableForBonusFrequentRenterPoints()? 2: 1;
+        return isApplicableForBonusFrequentRenterPoints() ? 2 : 1;
     }
 }
